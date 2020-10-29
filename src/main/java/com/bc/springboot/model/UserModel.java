@@ -1,13 +1,8 @@
-package model;
-
-import lombok.Getter;
-import lombok.Setter;
+package com.bc.springboot.model;
 
 import java.util.UUID;
 
-@Getter
-@Setter
-public class User{
+public class UserModel {
     protected UUID id;
     protected String name;
     protected String password;
@@ -20,7 +15,7 @@ public class User{
         this.name = value;
     }
 
-    public User withName(String value) {
+    public UserModel withName(String value) {
         setName(value);
         return this;
     }
@@ -33,7 +28,7 @@ public class User{
         this.id = value;
     }
 
-    public User withUUID(UUID value) {
+    public UserModel withUUID(UUID value) {
         setUUID(value);
         return this;
     }
@@ -46,9 +41,8 @@ public class User{
         this.password = value;
     }
 
-    public User withPassword(String value) {
+    public UserModel withPassword(String value) {
         setPassword(value);
         return this;
     }
-
 }

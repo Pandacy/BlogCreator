@@ -1,8 +1,7 @@
 package com.bc.springboot.model;
 
 import javax.persistence.*;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.List;
 
 @Entity(name="User")
 public class User {
@@ -17,13 +16,21 @@ public class User {
 
     private String password;
 
+    /*@OneToMany
+    private List<Report> report;
+
+    @OneToOne
+    private Blog blog;
+
+    @OneToOne
+    private Account account;*/
+
     public User()
     {
 
     }
 
-    public User(User user)
-    {
+    public User(User user) {
         id = user.id;
         name = user.name;
         email = user.email;
@@ -31,8 +38,7 @@ public class User {
     }
 
     // standard constructors
-    public User(Integer id, String name, String email, String password)
-    {
+    public User(Integer id, String name, String email, String password) {
         this.id = id;
         this.name = name;
         this.email = email;

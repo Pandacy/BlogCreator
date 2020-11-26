@@ -15,10 +15,15 @@ import java.util.List;
 public class UserController {
     @Autowired private UserService userService;
 
+    public UserController(){
+
+    }
+
     @GetMapping(path = "/{id}")
     public ResponseEntity<User> getUserById(@PathVariable final int id) {
         return ResponseEntity.ok(userService.getUserById(id));
     }
+
     @GetMapping
     public ResponseEntity<List<User>> getUsers(){
         List<User> allUsers = userService.getUsers();

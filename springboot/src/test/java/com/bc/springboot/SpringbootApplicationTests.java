@@ -48,13 +48,12 @@ public class SpringbootApplicationTests {
     public void testAddUser() throws Exception {
         //given
         _users.add(new User(1, "name2", "mail2@mail2.com", "password2"));
+
+        //when
         Mockito.when(_userService.getUsers()).thenReturn(_users);
 
-        Assert.assertEquals(_users.get(1).getName(), "name2");
-        //
-        //when
-
         //then
+        Assert.assertEquals(_users.get(1).getName(), "name2");
     }
 
 }

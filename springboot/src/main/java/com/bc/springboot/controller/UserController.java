@@ -11,6 +11,7 @@ import java.net.URI;
 import java.util.List;
 
 @RestController
+@CrossOrigin(origins = "*")
 @RequestMapping(value = "/user", produces = "application/json")
 public class UserController {
     @Autowired private UserService userService;

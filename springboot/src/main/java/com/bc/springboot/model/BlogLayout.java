@@ -16,13 +16,6 @@ public class BlogLayout {
 
     private String fontSize;
 
-    private String layoutStyle;
-
-    @OneToOne
-    @JoinColumn(name="blog_id")
-    @RestResource(path = "blogLayout", rel="blog")
-    private Blog blog;
-
     public BlogLayout(){
 
     }
@@ -32,16 +25,13 @@ public class BlogLayout {
         this.font = layout.font;
         this.color = layout.color;
         this.fontSize = layout.fontSize;
-        this.layoutStyle = layout.layoutStyle;
-        this.blog = layout.blog;
     }
 
-    public BlogLayout(Integer id, String font, String color, String fontSize, String layoutStyle){
+    public BlogLayout(Integer id, String font, String color, String fontSize){
         this.id = id;
         this.font = font;
         this.color = color;
         this.fontSize = fontSize;
-        this.layoutStyle = layoutStyle;
     }
 
     public Integer getId() {
@@ -74,13 +64,5 @@ public class BlogLayout {
 
     public void setFontSize(String fontSize) {
         this.fontSize = fontSize;
-    }
-
-    public String getLayoutStyle() {
-        return layoutStyle;
-    }
-
-    public void setLayoutStyle(String layoutStyle) {
-        this.font = layoutStyle;
     }
 }

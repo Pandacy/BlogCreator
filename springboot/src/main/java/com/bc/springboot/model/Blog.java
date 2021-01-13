@@ -3,27 +3,26 @@ package com.bc.springboot.model;
 import org.springframework.data.rest.core.annotation.RestResource;
 
 import javax.persistence.*;
+import java.io.Serializable;
+import java.util.List;
 
 @Entity(name="Blog")
-public class Blog {
+public class Blog implements Serializable {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     private Integer id;
 
-    private String name;
+    private String title;
 
     private String description;
 
     @OneToOne
-    @JoinColumn(name="user_id")
-    @RestResource(path = "userBlog", rel="user")
+    @JoinColumn(name="userId")
+    //@RestResource(path = "userBlog", rel="user")
     private User user;
 
     @OneToOne
     private BlogLayout blogLayout;
-
-    /*@OneToMany(mappedBy = "comment")
-    private Comment comment;*/
 
     public Blog(){
 
@@ -31,17 +30,18 @@ public class Blog {
 
     public Blog(Blog blog){
         this.id = blog.id;
-        this.name = blog.name;
+        this.title = blog.title;
         this.description = blog.description;
         this.user = blog.user;
         this.blogLayout = blog.blogLayout;
         //this.comment = blog.comment;
     }
 
-    public Blog(Integer id, String name, String description){
+    public Blog(Integer id, String title, String description, User user){
         this.id = id;
-        this.name = name;
+        this.title = title;
         this.description = description;
+        this.user = user;
     }
 
     public Integer getId() {
@@ -52,12 +52,12 @@ public class Blog {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getTitle() {
+        return title;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public String getDescription() {
@@ -67,4 +67,13 @@ public class Blog {
     public void setDescription(String description) {
         this.description = description;
     }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
 }

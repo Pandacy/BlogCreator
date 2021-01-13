@@ -1,45 +1,43 @@
 package com.bc.springboot.service;
 
+import com.bc.springboot.model.Report;
 import com.bc.springboot.model.User;
+import com.bc.springboot.repository.IReportRepository;
 import com.bc.springboot.repository.IUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class ReportService {
     @Autowired
-    private IUserRepository userRepository;
+    private IReportRepository reportRepository;
 
-    public void AddUser(User user)
+    public void AddReport(Report report)
     {
-        userRepository.save(user);
+        reportRepository.save(report);
     }
 
-    public List<User> getUsers()
+    public List<Report> getReports()
     {
-        return userRepository.findAll();
+        return reportRepository.findAll();
     }
 
-    public User getUserById(int id)
+    public Report getReportById(int id)
     {
-        return userRepository.findById(id).orElse(null);
+        return reportRepository.findById(id).orElse(null);
     }
 
-    public User getUserByName(String name)
-    {
-        return userRepository.findByName(name);
-    }
-
-    public String DeleteUser(int id){
-        userRepository.deleteById(id);
+    public String DeleteReport(int id){
+        reportRepository.deleteById(id);
         return "Object Deleted";
     }
 
-    public User UpdateUser(User user){
-        User userData = userRepository.findById(user.getId()).orElse(null);
-        userData.setEmail(user.getEmail());
-        userData.setPassword(user.getPassword());
-        userData.setName(user.getName());
-        return userRepository.save(userData);
+    public Report UpdateReport(Report report){
+        Report reportData = reportRepository.findById(report.getId()).orElse(null);
+        reportData.setTitle(report.getTitle());
+        reportData.setDescription(report.getDescription());
+        return reportRepository.save(reportData);
     }
 }

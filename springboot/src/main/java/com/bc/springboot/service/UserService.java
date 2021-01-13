@@ -13,9 +13,9 @@ public class UserService {
     @Autowired
     private IUserRepository userRepository;
 
-    public void AddUser(User user)
+    public User AddUser(User user)
     {
-        userRepository.save(user);
+        return userRepository.save(user);
     }
 
     public List<User> getUsers()
@@ -39,10 +39,25 @@ public class UserService {
     }
 
     public User UpdateUser(User user){
-        User userData = userRepository.findById(user.getId()).orElse(null);
-        userData.setEmail(user.getEmail());
+        User userData = new User();
+        if (user.getId() == null){
+            userData = userRepository.findByName(user.getName());
+        }
+        else{
+            userData = userRepository.findById(user.getId()).orElse(null);
+        }
+        //userData.setEmail(user.getEmail());
         userData.setPassword(user.getPassword());
         userData.setName(user.getName());
+        userData.setToken(user.getToken());
         return userRepository.save(userData);
+    }
+
+    public Boolean verify(User user){
+        User userData = userRepository.findByName(user.getName());
+        if (user.getPassword().equals(userData.getPassword())){
+            return true;
+        }
+        return false;
     }
 }

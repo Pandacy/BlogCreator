@@ -14,7 +14,7 @@ public class Message {
     private String content;
 
     @ManyToOne
-    @JoinColumn(name = "blog_id")
+    @JoinColumn(name = "blogId")
     private Blog blog;
 
     @OneToMany
@@ -61,5 +61,13 @@ public class Message {
 
     public void setContent(String content) {
         this.content = content;
+    }
+
+    public Blog getBlog() {
+        return blog;
+    }
+
+    public void setBlog(Blog blog) {
+        this.blog = blog;
     }
 }

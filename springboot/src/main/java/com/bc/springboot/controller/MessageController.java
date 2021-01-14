@@ -22,7 +22,7 @@ public class MessageController {
     }
 
     @GetMapping(path = "/{id}")
-    public ResponseEntity<Message> getMessageById(@PathVariable final int id) {
+    public ResponseEntity<List<Message>> getMessageById(@PathVariable final int id) {
         return ResponseEntity.ok(messageService.getByBlogId(id));
     }
 

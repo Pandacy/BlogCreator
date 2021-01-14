@@ -27,7 +27,7 @@ public class MessageService {
         return messageRepository.findById(id).orElse(null);
     }
 
-    public Message getByBlogId(int id) {
+    public List<Message> getByBlogId(int id) {
         return messageRepository.findByBlogId(id);
     }
 

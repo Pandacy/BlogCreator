@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 @CrossOrigin(origins = "http://localhost:4200")
 @SpringBootApplication
 @EnableJpaRepositories
-@Import({UserController.class, AccountController.class, BlogController.class, BlogLayoutController.class, CommentController.class, MessageController.class, ReportController.class})
+@Import({UserController.class, BlogController.class, BlogLayoutController.class, CommentController.class, MessageController.class, ReportController.class})
 public class SpringbootApplication extends SpringBootServletInitializer{
 
     public static void main(String[] args) {

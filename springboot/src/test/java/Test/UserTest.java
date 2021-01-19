@@ -20,4 +20,9 @@ public class UserTest {
         //assert
         assertEquals(user, returnUser);
     }
+
+    @Test
+    public void ErrorTestForActions(){
+        assertEquals("", "1");
+    }
 }

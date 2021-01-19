@@ -9,37 +9,41 @@ import java.util.List;
 
 @Service
 public class BlogService {
-    @Autowired
-    private IBlogRepository iBlogRepository;
+    private static IBlogRepository blogRepository;
+
+    public BlogService(IBlogRepository repository)
+    {
+        blogRepository = repository;
+    };
 
     public void AddBlog(Blog blog)
     {
-        iBlogRepository.save(blog);
+        blogRepository.save(blog);
     }
 
     public List<Blog> getBlog()
     {
-        return iBlogRepository.findAll();
+        return blogRepository.findAll();
     }
 
     public Blog getBlogById(int id)
     {
-        return iBlogRepository.findById(id).orElse(null);
+        return blogRepository.findById(id).orElse(null);
     }
 
     public Blog getByUserId(int userid) {
-        return iBlogRepository.findByUserId(userid);
+        return blogRepository.findByUserId(userid);
     }
 
     public String deleteBlog(int id){
-        iBlogRepository.deleteById(id);
+        blogRepository.deleteById(id);
         return "Object Deleted";
     }
 
     public Blog updateBlog(Blog blog){
-        Blog blogData = iBlogRepository.findById(blog.getId()).orElse(null);
+        Blog blogData = blogRepository.findById(blog.getId()).orElse(null);
         blogData.setTitle(blog.getTitle());
         blogData.setDescription(blog.getDescription());
-        return iBlogRepository.save(blogData);
+        return blogRepository.save(blogData);
     }
 }

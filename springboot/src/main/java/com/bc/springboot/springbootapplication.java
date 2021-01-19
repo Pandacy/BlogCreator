@@ -12,10 +12,10 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 @SpringBootApplication
 @EnableJpaRepositories
 @Import({UserController.class, BlogController.class, BlogLayoutController.class, CommentController.class, MessageController.class, ReportController.class})
-public class SpringbootApplication extends SpringBootServletInitializer{
+public class springbootapplication extends SpringBootServletInitializer{
 
     public static void main(String[] args) {
-        SpringApplication.run(SpringbootApplication.class, args);
+        SpringApplication.run(springbootapplication.class, args);
     }
 
 }

@@ -34,4 +34,4 @@ jobs:
           name: Package
           path: staging
       - name: Run tests with Maven
-        run: mvn -B test --file pom.xml
+        run: mvn -B package --file springboot/pom.xml -X

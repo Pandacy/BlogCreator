@@ -26,12 +26,15 @@ jobs:
         uses: actions/setup-java@v1
         with:
           java-version: 1.8
-      - name: Build with Maven
+      - name: Build with Maven and test with maven
         run: mvn -B package --file springboot/pom.xml -X
       - run: mkdir staging && cp springboot/target/*.war staging
       - uses: actions/upload-artifact@v2
         with:
           name: Package
           path: staging
-      - name: Run tests with Maven
-        run: mvn -B package --file springboot/pom.xml -X
+      - name: SonarCloud Scan
+        uses: sonarsource/sonarcloud-github-action@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.SONARAUTH_TOKEN }}
+          SONAR_TOKEN: ${{ secrets.SONARCLOUD_TOKEN }}

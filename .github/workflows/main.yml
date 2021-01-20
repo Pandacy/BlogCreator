@@ -33,15 +33,3 @@ jobs:
         with:
           name: Package
           path: staging
-      - name: Analyze with SonarCloud
-      - uses: sonarsource/sonarcloud-github-action@master
-        with:
-          projectBaseDir: my-custom-directory
-          args: >
-            -Dsonar.organization=pandacy
-            -Dsonar.projectKey=Pandacy_BlogCreator
-            -Dsonar.python.coverage.reportPaths=coverage.xml
-            -Dsonar.sources=lib/
-            -Dsonar.test.exclusions=tests/**
-            -Dsonar.tests=tests/
-            -Dsonar.verbose=true

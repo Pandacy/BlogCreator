@@ -1,7 +1,5 @@
 package com.bc.springboot.model;
 
-import org.springframework.data.rest.core.annotation.RestResource;
-
 import javax.persistence.*;
 
 @Entity(name="BlogLayout")

@@ -2,7 +2,6 @@ package com.bc.springboot.service;
 
 import com.bc.springboot.model.User;
 import com.bc.springboot.repository.IUserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

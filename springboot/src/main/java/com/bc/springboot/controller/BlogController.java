@@ -29,7 +29,6 @@ public class BlogController {
     @GetMapping(path = "/{name}")
     public ResponseEntity<Blog> getBlogById(@PathVariable final String name) {
         User user = userService.getUserByName(name);
-        Blog blog = blogService.getByUserId(user.getId());
         return ResponseEntity.ok(blogService.getByUserId(user.getId()));
     }
 
@@ -41,21 +40,19 @@ public class BlogController {
 
     @PostMapping
     public ResponseEntity<Blog> create(@RequestBody final Blog blogFromRequest) {
-        Blog blog = new Blog(blogFromRequest);
-        User user = userService.getUserByName(blog.getUser().getName());
-        blog.setUser(user);
-        blogService.AddBlog(blog);
-        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(blogService.getBlogById(blog.getId())).toUri();
-        return ResponseEntity.created(uri).body(blog);
+        User user = userService.getUserByName(blogFromRequest.getUser().getName());
+        blogFromRequest.setUser(user);
+        blogService.AddBlog(blogFromRequest);
+        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(blogFromRequest.getId()).toUri();
+        return ResponseEntity.created(uri).body(blogFromRequest);
     }
 
     @PutMapping(path = "/{id}")
     public ResponseEntity<Blog> put(@RequestBody final Blog blogFromRequest, @PathVariable final int id) {
-        Blog blog = new Blog(blogFromRequest);
-        blog.setId(id);
-        blogService.updateBlog(blog);
-        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(blogService.getBlogById(blog.getId())).toUri();
-        return ResponseEntity.created(uri).body(blog);
+        blogFromRequest.setId(id);
+        blogService.updateBlog(blogFromRequest);
+        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(blogFromRequest.getId()).toUri();
+        return ResponseEntity.created(uri).body(blogFromRequest);
     }
 
     @DeleteMapping(path = "/{id}")

@@ -34,19 +34,17 @@ public class MessageController {
 
     @PostMapping
     public ResponseEntity<Message> create(@RequestBody final Message messageFromRequest) {
-        Message message = new Message(messageFromRequest);
-        messageService.AddMessage(message);
-        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(messageService.getMessageById(message.getId())).toUri();
-        return ResponseEntity.created(uri).body(message);
+        messageService.AddMessage(messageFromRequest);
+        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(messageService.getMessageById(messageFromRequest.getId())).toUri();
+        return ResponseEntity.created(uri).body(messageFromRequest);
     }
 
     @PutMapping(path = "/{id}")
     public ResponseEntity<Message> put(@RequestBody final Message messageFromRequest, @PathVariable final int id) {
-        Message message = new Message(messageFromRequest);
-        message.setId(id);
-        messageService.UpdateMessage(message);
-        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(messageService.getMessageById(message.getId())).toUri();
-        return ResponseEntity.created(uri).body(message);
+        messageFromRequest.setId(id);
+        messageService.UpdateMessage(messageFromRequest);
+        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(messageFromRequest.getId()).toUri();
+        return ResponseEntity.created(uri).body(messageFromRequest);
     }
 
     @DeleteMapping(path = "/{id}")

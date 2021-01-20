@@ -1,7 +1,6 @@
 package com.bc.springboot.model;
 
 import javax.persistence.*;
-import java.util.List;
 
 @Entity(name="Comment")
 public class Comment {

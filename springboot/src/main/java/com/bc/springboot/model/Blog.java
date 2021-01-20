@@ -1,10 +1,7 @@
 package com.bc.springboot.model;
 
-import org.springframework.data.rest.core.annotation.RestResource;
-
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.List;
 
 @Entity(name="Blog")
 public class Blog implements Serializable {
@@ -17,7 +14,7 @@ public class Blog implements Serializable {
     private String description;
 
     @OneToOne
-    @JoinColumn(name="userId")
+    @JoinColumn(name="userId", unique = true)
     //@RestResource(path = "userBlog", rel="user")
     private User user;
 

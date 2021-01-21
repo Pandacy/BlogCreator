@@ -1,6 +1,7 @@
 package com.bc.springboot.controller;
 
 import com.bc.springboot.model.Blog;
+import com.bc.springboot.model.BlogModel;
 import com.bc.springboot.model.User;
 import com.bc.springboot.service.BlogService;
 import com.bc.springboot.service.UserService;
@@ -39,20 +40,25 @@ public class BlogController {
     }
 
     @PostMapping
-    public ResponseEntity<Blog> create(@RequestBody final Blog blogFromRequest) {
-        User user = userService.getUserByName(blogFromRequest.getUser().getName());
-        blogFromRequest.setUser(user);
-        blogService.AddBlog(blogFromRequest);
-        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(blogFromRequest.getId()).toUri();
-        return ResponseEntity.created(uri).body(blogFromRequest);
+    public ResponseEntity<Blog> create(@RequestBody final BlogModel blogFromRequest) {
+        Blog blog = new Blog(blogFromRequest.getTitle(), blogFromRequest.getDescription());
+        blog.setUser(userService.getUserByName(blogFromRequest.getUser().getName()));
+        blogService.AddBlog(blog);
+        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(blog.getId()).toUri();
+        return ResponseEntity.created(uri).body(blog);
     }
 
     @PutMapping(path = "/{id}")
-    public ResponseEntity<Blog> put(@RequestBody final Blog blogFromRequest, @PathVariable final int id) {
-        blogFromRequest.setId(id);
-        blogService.updateBlog(blogFromRequest);
-        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(blogFromRequest.getId()).toUri();
-        return ResponseEntity.created(uri).body(blogFromRequest);
+    public ResponseEntity<Blog> put(@RequestBody final BlogModel blogFromRequest, @PathVariable final int id) {
+        Blog blog = new Blog(blogFromRequest.getTitle(), blogFromRequest.getDescription());
+        if (userService.isAuthorized(blogFromRequest.getUser().getToken()))
+        {
+            blog.setId(id);
+            blogService.updateBlog(blog);
+            URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(blog.getId()).toUri();
+            return ResponseEntity.created(uri).body(blog);
+        }
+        return ResponseEntity.badRequest().body(blog);
     }
 
     @DeleteMapping(path = "/{id}")

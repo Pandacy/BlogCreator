@@ -27,7 +27,6 @@ public class BlogService {
 
     public Blog getBlogById(int id)
     {
-
         return blogRepository.findById(id).orElse(null);
     }
 

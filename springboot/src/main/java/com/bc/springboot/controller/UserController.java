@@ -1,5 +1,6 @@
 package com.bc.springboot.controller;
 
+import com.bc.springboot.model.UserModel;
 import com.bc.springboot.service.UserService;
 import com.bc.springboot.model.User;
 import com.bc.springboot.util.JwtUtil;
@@ -41,30 +42,32 @@ public class UserController {
     }
 
     @PostMapping
-    public ResponseEntity<User> create(@RequestBody final User userFromRequest) {
-        userService.AddUser(userFromRequest);
-        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{name}").buildAndExpand(userFromRequest).toUri();
-        return ResponseEntity.created(uri).body(userFromRequest);
+    public ResponseEntity<User> create(@RequestBody final UserModel userFromRequest) {
+        User user = new User(userFromRequest.getName(), userFromRequest.getEmail(), userFromRequest.getPassword());
+        userService.AddUser(user);
+        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{name}").buildAndExpand(user).toUri();
+        return ResponseEntity.created(uri).body(user);
     }
 
     @PostMapping(path = "/login")
-    public String generateToken(@RequestBody final User userFromRequest) throws Exception {
-        //authenticationManager.authenticate(new UsernamePasswordAuthenticationToken("name", "pass"));
-        if (userService.verify(userFromRequest)){
-            String token = jwtUtil.generateToken(userFromRequest.getName());
-            userFromRequest.setToken(token);
-            userService.UpdateUser(userFromRequest);
+    public String generateToken(@RequestBody final UserModel userFromRequest) throws Exception {
+        User user = new User(userFromRequest.getName(), userFromRequest.getPassword());
+        if (userService.verify(user)){
+            String token = jwtUtil.generateToken(user.getName());
+            user.setToken(token);
+            userService.UpdateUser(user);
             return token;
         }
         return "";
     }
 
     @PutMapping(path = "/{id}")
-    public ResponseEntity<User> put(@RequestBody final User userFromRequest, @PathVariable final int id) {
-        userFromRequest.setId(id);
-        userService.UpdateUser(userFromRequest);
+    public ResponseEntity<User> put(@RequestBody final UserModel userFromRequest, @PathVariable final int id) {
+        User user = new User();
+        user.setId(id);
+        userService.UpdateUser(user);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{name}").buildAndExpand(userFromRequest).toUri();
-        return ResponseEntity.created(uri).body(userFromRequest);
+        return ResponseEntity.created(uri).body(user);
     }
 
     @DeleteMapping(path = "/{id}")

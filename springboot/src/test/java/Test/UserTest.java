@@ -53,12 +53,42 @@ public class UserTest {
         UserService service = new UserService(repo);
         User user = new User(1, "name1", "name1@hotmail.com", "password1", "token1");
         repo.users.add(user);
-        User user2 = new User(1, "name2", "name2@hotmail.com", "password2", "token2");
+        User userInput = new User(1, "name2", "name2@hotmail.com", "password2", "token2");
         //act
-        service.UpdateUser(user2);
+        service.UpdateUser(userInput);
         //assert
-        assertEquals(repo.users.get(0).getName(), user2.getName());
-        assertEquals(repo.users.get(0).getPassword(), user2.getPassword());
-        assertEquals(repo.users.get(0).getToken(), user2.getToken());
+        assertEquals(repo.users.get(0).getName(), userInput.getName());
+        assertEquals(repo.users.get(0).getPassword(), userInput.getPassword());
+        assertEquals(repo.users.get(0).getToken(), userInput.getToken());
+    }
+
+    @Test
+    public void verifyUserTest()
+    {
+        //arrange
+        UserRepository repo = new UserRepository();
+        UserService service = new UserService(repo);
+        User user = new User(1, "name1", "name1@hotmail.com", "password1", "token1");
+        repo.users.add(user);
+        User userInput = new User(1, "name1", "name1@hotmail.com", "password1", "token1");
+        //act
+        Boolean isVerified = service.verify(userInput);
+        //assert
+        assertTrue(isVerified);
+    }
+
+    @Test
+    public void verifyAuthTest()
+    {
+        //arrange
+        UserRepository repo = new UserRepository();
+        UserService service = new UserService(repo);
+        User user = new User(1, "name1", "name1@hotmail.com", "password1", "token1");
+        repo.users.add(user);
+        String token = "token1";
+        //act
+        Boolean isVerified = service.isAuthorized(token);
+        //assert
+        assertTrue(isVerified);
     }
 }

@@ -25,6 +25,16 @@ public class UserRepository implements IUserRepository {
     }
 
     @Override
+    public Optional<User> findByToken(String token) {
+        for (User user: users){
+            if (user.getToken() == token){
+                return Optional.of(user);
+            }
+        }
+        return null;
+    }
+
+    @Override
     public User save(User user) {
         users.add(user);
         return user;

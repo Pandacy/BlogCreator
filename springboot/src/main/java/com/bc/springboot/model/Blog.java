@@ -34,11 +34,15 @@ public class Blog implements Serializable {
         //this.comment = blog.comment;
     }
 
-    public Blog(Integer id, String title, String description, User user){
-        this.id = id;
+    public Blog(String title, String description, User user){
         this.title = title;
         this.description = description;
         this.user = user;
+    }
+
+    public Blog(String title, String description){
+        this.title = title;
+        this.description = description;
     }
 
     public Integer getId() {

@@ -35,6 +35,11 @@ public class UserService {
         return userRepository.findByName(name).orElse(null);
     }
 
+    public User getUserByToken(String token)
+    {
+        return userRepository.findByToken(token).orElse(null);
+    }
+
     public String DeleteUser(int id){
         userRepository.deleteById(id);
         return "Object Deleted";
@@ -58,6 +63,14 @@ public class UserService {
     public Boolean verify(User user){
         User userData = userRepository.findByName(user.getName()).orElse(null);
         if (user.getPassword().equals(userData.getPassword())){
+            return true;
+        }
+        return false;
+    }
+
+    public Boolean isAuthorized(String token){
+        User userData = userRepository.findByToken(token).orElse(null);
+        if (token.equals(userData.getToken())){
             return true;
         }
         return false;

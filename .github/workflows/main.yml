@@ -27,7 +27,7 @@ jobs:
         with:
           java-version: 1.8
       - name: Build with Maven and test with maven
-        run: mvn -B package --file springboot/pom.xml -X
+        run: mvn -B package --file springboot/pom.xml -Pproduction -X
       - run: mkdir staging && cp springboot/target/*.war staging
       - uses: actions/upload-artifact@v2
         with:

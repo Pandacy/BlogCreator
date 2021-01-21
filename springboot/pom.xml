@@ -108,7 +108,7 @@
     </dependencies>
 
 	<build>
-		<finalName>${artifactId}</finalName>
+		<finalName>${project.artifactId}</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
@@ -147,6 +147,12 @@
 			<properties>
 				<spring.profiles.active>production</spring.profiles.active>
 			</properties>
+			<activation>
+				<property>
+					<name>env.BUILD_ENV</name>
+					<value>github-actions</value>
+				</property>
+			</activation>
 		</profile>
 	</profiles>
 

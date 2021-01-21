@@ -30,8 +30,8 @@ public class BlogService {
         return blogRepository.findById(id).orElse(null);
     }
 
-    public Blog getByUserId(int userid) {
-        return blogRepository.findByUserId(userid);
+    public Blog getByUserId(Integer id) {
+        return blogRepository.findById(id).orElse(null);
     }
 
     public String deleteBlog(int id){

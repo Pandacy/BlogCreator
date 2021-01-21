@@ -21,8 +21,12 @@ public class Message {
     @JoinColumn(name = "comment_id", referencedColumnName = "id")
     private List<Comment> comment;
 
-    public Message() {
+    public Message(){
 
+    }
+    public Message(String content, Blog blog) {
+        this.content = content;
+        this.blog = blog;
     }
 
     public Message(Message message) {
@@ -33,9 +37,7 @@ public class Message {
         this.comment = message.comment;
     }
 
-    public Message(Integer id, Integer votes, String content){
-        this.id = id;
-        this.votes = votes;
+    public Message(String content){
         this.content = content;
     }
 

@@ -27,10 +27,9 @@ public class BlogController {
 
     }
 
-    @GetMapping(path = "/{name}")
-    public ResponseEntity<Blog> getBlogById(@PathVariable final String name) {
-        User user = userService.getUserByName(name);
-        return ResponseEntity.ok(blogService.getByUserId(user.getId()));
+    @GetMapping(path = "/{id}")
+    public ResponseEntity<Blog> getBlogById(@PathVariable final Integer id) {
+        return ResponseEntity.ok(blogService.getBlogById(id));
     }
 
     @GetMapping

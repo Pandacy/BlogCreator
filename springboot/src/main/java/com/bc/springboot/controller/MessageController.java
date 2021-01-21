@@ -1,6 +1,7 @@
 package com.bc.springboot.controller;
 
 import com.bc.springboot.model.Message;
+import com.bc.springboot.model.MessageModel;
 import com.bc.springboot.service.MessageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -33,18 +34,20 @@ public class MessageController {
     }
 
     @PostMapping
-    public ResponseEntity<Message> create(@RequestBody final Message messageFromRequest) {
-        messageService.AddMessage(messageFromRequest);
-        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(messageService.getMessageById(messageFromRequest.getId())).toUri();
-        return ResponseEntity.created(uri).body(messageFromRequest);
+    public ResponseEntity<Message> create(@RequestBody final MessageModel messageFromRequest) {
+        Message message = new Message(messageFromRequest.getContent(), messageFromRequest.getBlog());
+        messageService.AddMessage(message);
+        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(message).toUri();
+        return ResponseEntity.created(uri).body(message);
     }
 
     @PutMapping(path = "/{id}")
-    public ResponseEntity<Message> put(@RequestBody final Message messageFromRequest, @PathVariable final int id) {
-        messageFromRequest.setId(id);
-        messageService.UpdateMessage(messageFromRequest);
-        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(messageFromRequest.getId()).toUri();
-        return ResponseEntity.created(uri).body(messageFromRequest);
+    public ResponseEntity<Message> put(@RequestBody final MessageModel messageFromRequest, @PathVariable final int id) {
+        Message message = new Message(messageFromRequest.getContent());
+        message.setId(id);
+        messageService.UpdateMessage(message);
+        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(message.getId()).toUri();
+        return ResponseEntity.created(uri).body(message);
     }
 
     @DeleteMapping(path = "/{id}")

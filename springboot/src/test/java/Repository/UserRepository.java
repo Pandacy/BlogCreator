@@ -15,10 +15,10 @@ public class UserRepository implements IUserRepository {
     public List<User> users = new ArrayList<>();
 
     @Override
-    public User findByName(String name) {
+    public Optional<User> findByName(String name) {
         for (User user: users){
             if (user.getName() == name){
-                return user;
+                return Optional.of(user);
             }
         }
         return null;
@@ -28,6 +28,32 @@ public class UserRepository implements IUserRepository {
     public User save(User user) {
         users.add(user);
         return user;
+    }
+
+    @Override
+    public void deleteById(Integer integer) {
+        User toDelete = new User();
+        for (User user: users){
+            if (user.getId() == integer){
+                toDelete = user;
+            }
+        }
+        users.remove(toDelete);
+    }
+
+    @Override
+    public Optional<User> findById(Integer integer) {
+        for (User user: users){
+            if (user.getId() == integer){
+                return Optional.of(user);
+            }
+        }
+        return null;
+    }
+
+    @Override
+    public void delete(User user) {
+
     }
 
     @Override
@@ -55,15 +81,9 @@ public class UserRepository implements IUserRepository {
         return 0;
     }
 
-    @Override
-    public void deleteById(Integer integer) {
 
-    }
 
-    @Override
-    public void delete(User user) {
 
-    }
 
     @Override
     public void deleteAll(Iterable<? extends User> iterable) {
@@ -80,11 +100,6 @@ public class UserRepository implements IUserRepository {
     @Override
     public <S extends User> List<S> saveAll(Iterable<S> iterable) {
         return null;
-    }
-
-    @Override
-    public Optional<User> findById(Integer integer) {
-        return Optional.empty();
     }
 
     @Override

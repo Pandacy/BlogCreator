@@ -32,7 +32,7 @@ public class UserService {
 
     public User getUserByName(String name)
     {
-        return userRepository.findByName(name);
+        return userRepository.findByName(name).orElse(null);
     }
 
     public String DeleteUser(int id){
@@ -43,7 +43,7 @@ public class UserService {
     public User UpdateUser(User user){
         User userData = new User();
         if (user.getId() == null){
-            userData = userRepository.findByName(user.getName());
+            userData = userRepository.findByName(user.getName()).orElse(null);
         }
         else{
             userData = userRepository.findById(user.getId()).orElse(null);
@@ -56,7 +56,7 @@ public class UserService {
     }
 
     public Boolean verify(User user){
-        User userData = userRepository.findByName(user.getName());
+        User userData = userRepository.findByName(user.getName()).orElse(null);
         if (user.getPassword().equals(userData.getPassword())){
             return true;
         }
